@@ -1,11 +1,8 @@
 package com.github.arturdobo.playing.springdata;
 
 import com.github.arturdobo.playing.springdata.persistence.model.Person;
-import com.github.arturdobo.playing.springdata.persistence.repos.PersonRepository;
 import org.hamcrest.collection.IsIterableContainingInOrder;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,11 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.*;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.everyItem;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
@@ -25,16 +22,6 @@ import static org.hamcrest.core.IsCollectionContaining.*;
 import static org.junit.Assert.assertThat;
 
 public class PersonTests extends Base {
-
-	@Autowired
-	private PersonRepository personRepository;
-
-	@Before
-	public void before() {
-		List<Person> saved = personRepository.save(Arrays.asList(person1, person2, person3, person4));
-
-		assertThat(saved, everyItem(hasProperty("id", not(equalTo(0)))));
-	}
 
 	@Test
 	public void testShouldReturnAllPersons() throws Exception {
@@ -116,4 +103,5 @@ public class PersonTests extends Base {
 	public void testShouldThrowsExceptionIfThereIsMoreThan1SuchAsLastName() throws Exception {
 		personRepository.findOneByLastName(person2.getLastName());
 	}
+	
 }

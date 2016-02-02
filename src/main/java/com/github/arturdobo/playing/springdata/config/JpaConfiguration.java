@@ -1,5 +1,6 @@
 package com.github.arturdobo.playing.springdata.config;
 
+import com.github.arturdobo.playing.springdata.persistence.repos.AbstractEntityJpaRepositoryImpl;
 import com.github.arturdobo.playing.springdata.persistence.repos._ReposRoot;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +21,7 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackageClasses = _ReposRoot.class)
+@EnableJpaRepositories(basePackageClasses = _ReposRoot.class, repositoryBaseClass = AbstractEntityJpaRepositoryImpl.class)
 public class JpaConfiguration {
 	@Bean
 	public EmbeddedDatabaseFactoryBean embeddedDatabaseFactoryBean() {

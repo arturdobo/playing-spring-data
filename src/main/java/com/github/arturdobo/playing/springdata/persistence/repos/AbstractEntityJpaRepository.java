@@ -6,4 +6,10 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface AbstractEntityJpaRepository<T extends AbstractEntity> extends JpaRepository<T, Integer> {
+	boolean isAttached(T entity);
+
+	void detach(T entity);
+
+	T merge(T entity);
+
 }
