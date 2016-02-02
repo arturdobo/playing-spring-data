@@ -23,7 +23,5 @@ public interface PersonRepository extends AbstractEntityJpaRepository<Person> {
 
 	Slice<Person> findTop4ByAddress_City(String city, Pageable pageable);
 
-	List<Person> findAllByAddress(Address address);
-
 	Person findFirstByOrderByFirstName();
 }

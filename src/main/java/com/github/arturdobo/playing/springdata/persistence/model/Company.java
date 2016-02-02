@@ -7,8 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.List;
@@ -24,7 +23,13 @@ public class Company extends AbstractEntity {
 	@OneToOne
 	private Address address;
 
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "companyId")
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Person> employees;
+
+	@Enumerated
+	private Nationality nationality;
+
+	public enum Nationality {
+		PL, DE, FR
+	}
 }
